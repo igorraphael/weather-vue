@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Quicksand', sans-serif;
+}
+/* main app */
+#main{
+
+    width: 100%;
+    height: 100vh;
+    background: #c3c3c3;
+}
+#main > h1 {
+
+    text-align: center;
+}
+#main > img {
+
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+/* weather css */
+.container-w{
+    
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #000000, #434343); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #000000, #434343); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: 25px;
+    color: white;
+}
+.w-header{
+
+    display: flex;
+    justify-content: space-between;
+}
+.w-city{
+
+    display: inline-block;
+    height: auto;
+    padding: 3px 10px;
+    border: 1px solid rgba(163, 163, 163, 0.5);
+    border-radius: 3px;
+    background: #292929;
+    font-size: 14px;
+}
+.w-hours{
+
+    font-size: 18px;
+    line-height: 24px;
+}
+.w-body{
+
+    display: flex;
+    flex-direction: column;
+    margin: 2em 0;
+    text-align: center;
+}
+.w-icon-img{
+    /* display: block; */
+    width: 100px;
+    margin: 0px auto;
+}
+.w-info{
+
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.w-info-row{
+    
+    display: flex;
+    width: 130px;
+    justify-content: space-between;
+    font-size: 18px;
+    align-items: center;
+    padding: 2px;
+}
+.w-degrees {
+
+    width: 100px;
+    font-size: 55px;
+    text-align: end;
+    padding-top: 10px;
+}
+.wi {
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 18px; 
+  height: 18px;
+}
+.wi-wind { background: url('../assets/wind.svg');}
+.wi-humidity { background: url('../assets/humidity.svg');}
+.wi-sunny { background: url('../assets/sunny.svg');}
