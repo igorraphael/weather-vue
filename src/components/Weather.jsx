@@ -1,6 +1,5 @@
 import { defineComponent, ref, onMounted } from 'vue'
 import './index.css'
-import dayAnimate from '../assets/day.svg'
 
 export default defineComponent({
 
@@ -18,14 +17,14 @@ export default defineComponent({
             temp: 0,
             wind: 0,
             clouds: 0,
-            weather: null,
+            weather: {},
         })
 
         onMounted(() => {
 
-            locateMe().then(pos => {
+            allowGeoLocation().then(coords => {
 
-                let urlApi = `https://api.openweathermap.org/data/2.5/weather?lat=${pos[0]}&lon=${pos[1]}&units=metric&lang=pt_br&appid=ea51c9a4b740d49ce7b1682daea3d231`
+                let urlApi = `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&units=metric&lang=pt_br&appid=ea51c9a4b740d49ce7b1682daea3d231`
 
                 fetch(urlApi).then(response => {
 
@@ -69,19 +68,17 @@ export default defineComponent({
             });
         }
 
-        async function locateMe() {
-
+        async function allowGeoLocation() {
             try {
 
                 const position = await getLocation();
-                //console.log([position.coords.latitude, position.coords.longitude]);
                 return [position.coords.latitude, position.coords.longitude]
 
-            } catch (e) {
+            } catch (error) {
 
-                console.log(e)//if error in geolocation.
+                console.log(error)//if error in geolocation.
+                return error
             }
-
         }
 
         return () => (
@@ -93,7 +90,9 @@ export default defineComponent({
                         <span class="w-hours">{currentHours.value}</span>
                     </div>
                     <div class="w-body">
-                        <img class="w-icon-img" src={dayAnimate} />
+                        {
+                            weatherApp.weather ? (<img class="w-icon-img" src={`./src/assets/openweathermap/${weatherApp.weather.icon}.svg`} />) : ''
+                        }
                         <span class="w-text-weather">{weatherApp.weather ? weatherApp.weather.description : '...'}</span>
                     </div>
                     <div class="w-info">
