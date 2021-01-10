@@ -1,8 +1,9 @@
-function getPosition(position) {
-    console.log('lat', position.coords.latitude, 'lon', position.coords.longitude);
+export function arrLatLong(position) {
+    console.log('lat', position.coords.latitude, 'lon', position.coords.longitude)
+    return [position.coords.latitude, position.coords.longitude]
 }
 
-async function getLocation() {
+export async function getLocation() {
 
     return new Promise((resolve, reject) => {
 
@@ -19,13 +20,13 @@ async function getLocation() {
     });
 }
 
-async function locateMe() {
+export async function locateMe() {
 
     try {
 
         const geo = await getLocation();
         // console.log(geo);
-        getPosition(geo);
+        arrLatLong(geo);
 
     } catch (e) {
         //if error in geolocation.

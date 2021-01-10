@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap');
 
 
 *{
@@ -70,6 +70,9 @@ body{
     width: 100px;
     margin: 0px auto;
 }
+.w-text-weather{
+    text-transform: capitalize;
+}
 .w-info{
 
     height: 100%;
@@ -88,9 +91,9 @@ body{
 }
 .w-degrees {
 
-    width: 100px;
+    display: flex;
     font-size: 55px;
-    text-align: end;
+    font-weight: 300;
     padding-top: 10px;
 }
 .wi {
@@ -103,3 +106,5 @@ body{
 .wi-wind { background: url('../assets/wind.svg');}
 .wi-humidity { background: url('../assets/humidity.svg');}
 .wi-sunny { background: url('../assets/sunny.svg');}
+.wi-clouds { background: url('../assets/clouds.svg');}
+.wi-celsius { background: url('../assets/celsius.svg');}
