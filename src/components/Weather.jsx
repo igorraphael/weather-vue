@@ -1,4 +1,5 @@
 import { defineComponent, ref, onMounted } from 'vue'
+import Error from './error'
 import './index.css'
 
 export default defineComponent({
@@ -85,7 +86,8 @@ export default defineComponent({
 
             <div class="container-w">
                 <div class="content-w">
-                    <div class="w-header">
+                    <Error message="This message error.." />
+                    {/* <div class="w-header">
                         <span class="w-city">{weatherApp.nameCity}</span>
                         <span class="w-hours">{currentHours.value}</span>
                     </div>
@@ -112,9 +114,8 @@ export default defineComponent({
                         </div>
                         <div class="w-degrees">
                             <span>{weatherApp.temp ? weatherApp.temp : '0'}º</span>
-                            {/* <i class="wi wi-celsius" /> */}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         )
