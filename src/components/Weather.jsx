@@ -1,17 +1,20 @@
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, ref, reactive, onMounted } from 'vue'
+import iconLoading from '../assets/loading.svg'
 import Error from './error'
 import './index.css'
 
+
 export default defineComponent({
 
-    name: 'Weather',
-
+    name: 'Whater',
     setup() {
 
         let currentHours = ref('')
         setInterval(() => currentHours.value = new Date().toString().substr(16, 8), 1000) //substr(16, 5) HH:mm
-        // const URL = 'https://api.openweathermap.org/data/2.5/weather?lat=-24.2539782&lon=-51.672899099999995&units=metric&appid=ea51c9a4b740d49ce7b1682daea3d231';
-        const weatherApp = ref({
+
+        const URL_API = (lat, lon) => `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=ea51c9a4b740d49ce7b1682daea3d231`
+
+        const wData = reactive({
 
             nameCity: '',
             humidity: 0,
@@ -21,35 +24,36 @@ export default defineComponent({
             weather: {},
         })
 
+        const errorMsg = ref('')
+
+        const loading = ref(null)
+
         onMounted(() => {
 
-            allowGeoLocation().then(coords => {
+            getLocation().then(position => {
 
-                let urlApi = `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&units=metric&lang=pt_br&appid=ea51c9a4b740d49ce7b1682daea3d231`
+                loading.value = true
 
-                fetch(urlApi).then(response => {
+                const { latitude, longitude } = position.coords
 
-                    return response.json()
-                }).then(data => {
-                    // console.log('WEATHER', data)
+                fetch(URL_API(latitude, longitude)).then(response => response.json()).then(data => {
+
                     const { main, name, wind, clouds, weather } = data
 
-                    weatherApp.nameCity = name
-                    weatherApp.humidity = main.humidity
-                    weatherApp.clouds = clouds.all
-                    weatherApp.temp = Math.round(main.temp)
-                    weatherApp.wind = wind.speed * 3.6
-                    weatherApp.weather = weather[0]
+                    wData.nameCity = name
+                    wData.humidity = main.humidity
+                    wData.clouds = clouds.all
+                    wData.temp = Math.round(main.temp)
+                    wData.wind = wind.speed * 3.6
+                    wData.weather = weather[0]
 
                 }).catch(err => {
 
-                    return new Error('Sorry, error in api openweather..')
-                })
+                    console.log(' deu erro na API')
 
-            }).catch(error => {
+                }).finally(() => loading.value = false)
 
-                console.log('err', error)
-            })
+            }).catch(e => errorMsg.value = e.message)
         })
 
         async function getLocation() {
@@ -69,55 +73,60 @@ export default defineComponent({
             });
         }
 
-        async function allowGeoLocation() {
-            try {
+        return {
 
-                const position = await getLocation();
-                return [position.coords.latitude, position.coords.longitude]
-
-            } catch (error) {
-
-                console.log(error)//if error in geolocation.
-                return error
-            }
+            currentHours,
+            wData,
+            loading,
+            errorMsg
         }
+    },
+    render() {
 
-        return () => (
-
+        return (
             <div class="container-w">
                 <div class="content-w">
-                    <Error message="This message error.." />
-                    {/* <div class="w-header">
-                        <span class="w-city">{weatherApp.nameCity}</span>
-                        <span class="w-hours">{currentHours.value}</span>
-                    </div>
-                    <div class="w-body">
-                        {
-                            weatherApp.weather ? (<img class="w-icon-img" src={`./src/assets/openweathermap/${weatherApp.weather.icon}.svg`} />) : ''
-                        }
-                        <span class="w-text-weather">{weatherApp.weather ? weatherApp.weather.description : '...'}</span>
-                    </div>
-                    <div class="w-info">
-                        <div>
-                            <span class="w-info-row">
-                                <i class="wi wi-wind" />
-                                <span>{weatherApp.wind ? Number.parseFloat(weatherApp.wind).toPrecision(2) : '0'} km/h</span>
-                            </span>
-                            <span class="w-info-row">
-                                <i class="wi wi-humidity" />
-                                <span style={{ marginRight: '1.7em' }}>{weatherApp.humidity ? weatherApp.humidity : '0'} %</span>
-                            </span>
-                            <span class="w-info-row">
-                                <i class="wi wi-clouds" />
-                                <span style={{ marginRight: '1.7em' }}>{weatherApp.clouds ? weatherApp.clouds : '0'} %</span>
-                            </span>
+                    {this.errorMsg && <Error message={this.errorMsg} />}
+
+                    {this.loading && (
+                        <div class="content-loading">
+                            <img src={iconLoading} class="w-loading" />
                         </div>
-                        <div class="w-degrees">
-                            <span>{weatherApp.temp ? weatherApp.temp : '0'}º</span>
+                    )}
+
+                    <div v-show={!this.loading && !this.errorMsg}>
+                        <div class="w-header">
+                            <span class="w-city">{this.wData.nameCity}</span>
+                            <span class="w-hours">{this.currentHours}</span>
                         </div>
-                    </div> */}
+                        <div class="w-body">
+                            {
+                                this.wData.weather.icon ? (<img class="w-icon-img" src={`./src/assets/openweathermap/${this.wData.weather.icon}.svg`} />) : ''
+                            }
+                            <span class="w-text-weather">{this.wData.weather ? this.wData.weather.description : '...'}</span>
+                        </div>
+                        <div class="w-info">
+                            <div>
+                                <span class="w-info-row">
+                                    <i class="wi wi-wind" />
+                                    <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
+                                </span>
+                                <span class="w-info-row">
+                                    <i class="wi wi-humidity" />
+                                    <span style={{ marginRight: '1.7em' }}>{this.wData.humidity ? this.wData.humidity : '0'} %</span>
+                                </span>
+                                <span class="w-info-row">
+                                    <i class="wi wi-clouds" />
+                                    <span style={{ marginRight: '1.7em' }}>{this.wData.clouds ? this.wData.clouds : '0'} %</span>
+                                </span>
+                            </div>
+                            <div class="w-degrees">
+                                <span>{this.wData.temp ? this.wData.temp : '0'}º</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
-    },
+    }
 })
