@@ -1,4 +1,4 @@
-import { defineComponent, ref, reactive, onMounted } from 'vue'
+import { defineComponent, ref, reactive, onMounted, computed } from 'vue'
 import iconLoading from '../../assets/loading.svg'
 import Error from '../error'
 import './index.css'
@@ -24,15 +24,17 @@ export default defineComponent({
             weather: {},
         })
 
+        const wIcon = computed(() => `src/assets/openweathermap/${wData.weather.icon}.svg`)
+
         const errorMsg = ref('')
 
-        const loading = ref(null)
+        const loading = ref(true)
 
         onMounted(() => {
 
             getLocation().then(position => {
 
-                loading.value = true
+                // loading.value = true
 
                 const { latitude, longitude } = position.coords
 
@@ -47,6 +49,7 @@ export default defineComponent({
                     wData.wind = wind.speed * 3.6
                     wData.weather = weather[0]
 
+                    console.log(iconAnimated.value)
                 }).catch(err => {
 
                     console.log(' deu erro na API')
@@ -77,6 +80,7 @@ export default defineComponent({
 
             currentHours,
             wData,
+            wIcon,
             loading,
             errorMsg
         }
@@ -88,7 +92,7 @@ export default defineComponent({
                 <div class="content-w">
                     {this.errorMsg && <Error message={this.errorMsg} />}
 
-                    {this.loading && (
+                    {this.loading && !this.errorMsg && (
                         <div class="content-loading">
                             <img src={iconLoading} class="w-loading" />
                         </div>
@@ -101,7 +105,7 @@ export default defineComponent({
                         </div>
                         <div class="w-body">
                             {
-                                this.wData.weather.icon ? (<img class="w-icon-img" src={`./src/assets/openweathermap/${this.wData.weather.icon}.svg`} />) : ''
+                                this.wData.weather.icon ? (<img class="w-icon-img" src={this.wIcon} />) : ''
                             }
                             <span class="w-text-weather">{this.wData.weather ? this.wData.weather.description : '...'}</span>
                         </div>
@@ -109,7 +113,7 @@ export default defineComponent({
                             <div>
                                 <span class="w-info-row">
                                     <i class="wi wi-wind" />
-                                    <span style={{ marginRight: '0.2em' }}>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
+                                    <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
                                 </span>
                                 <span class="w-info-row">
                                     <i class="wi wi-humidity" />
