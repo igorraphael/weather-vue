@@ -1,4 +1,4 @@
-import { defineComponent, ref, reactive, onMounted, computed } from 'vue'
+import { defineComponent, ref, reactive, onMounted } from 'vue'
 import iconLoading from '../../assets/loading.svg'
 import Error from '../error'
 import './index.css'
@@ -23,8 +23,6 @@ export default defineComponent({
             clouds: 0,
             weather: {},
         })
-
-        const wIcon = computed(() => `src/assets/openweathermap/${wData.weather.icon}.svg`)
 
         const errorMsg = ref('')
 
@@ -80,7 +78,6 @@ export default defineComponent({
 
             currentHours,
             wData,
-            wIcon,
             loading,
             errorMsg
         }
@@ -105,7 +102,7 @@ export default defineComponent({
                         </div>
                         <div class="w-body">
                             {
-                                this.wData.weather.icon ? (<img class="w-icon-img" src={this.wIcon} />) : ''
+                                this.wData.weather.icon ? (<i class={`w-icon-weather wi-${this.wData.weather.icon}`} />) : ''
                             }
                             <span class="w-text-weather">{this.wData.weather ? this.wData.weather.description : '...'}</span>
                         </div>
