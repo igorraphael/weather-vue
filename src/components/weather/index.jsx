@@ -47,10 +47,9 @@ export default defineComponent({
                     wData.wind = wind.speed * 3.6
                     wData.weather = weather[0]
 
-                    console.log(iconAnimated.value)
                 }).catch(err => {
 
-                    console.log(' deu erro na API')
+                    console.log(err)
 
                 }).finally(() => loading.value = false)
 
