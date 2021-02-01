@@ -103,19 +103,27 @@
 
 .wi-01d { background: url('../../assets/openweathermap/01d.svg');}
 .wi-01n { background: url('../../assets/openweathermap/01n.svg');}
+
 .wi-02d { background: url('../../assets/openweathermap/02d.svg');}
 .wi-02n { background: url('../../assets/openweathermap/02n.svg');}
+
 .wi-03d { background: url('../../assets/openweathermap/03d.svg');}
 .wi-03n { background: url('../../assets/openweathermap/03n.svg');}
+
 .wi-04d { background: url('../../assets/openweathermap/04d.svg');}
 .wi-04n { background: url('../../assets/openweathermap/04n.svg');}
+
 .wi-09d { background: url('../../assets/openweathermap/09d.svg');}
 .wi-09n { background: url('../../assets/openweathermap/09n.svg');}
-.wi-10d { background: url('../../assets/openweathermap/010d.svg');}
-.wi-10n { background: url('../../assets/openweathermap/010n.svg');}
-.wi-11d { background: url('../../assets/openweathermap/011d.svg');}
-.wi-11n { background: url('../../assets/openweathermap/011n.svg');}
-.wi-13d { background: url('../../assets/openweathermap/013d.svg');}
-.wi-13n { background: url('../../assets/openweathermap/013n.svg');}
-.wi-50d { background: url('../../assets/openweathermap/050d.svg');}
-.wi-50n { background: url('../../assets/openweathermap/050n.svg');}
+
+.wi-10d { background: url('../../assets/openweathermap/10d.svg');}
+.wi-10n { background: url('../../assets/openweathermap/10n.svg');}
+
+.wi-11d { background: url('../../assets/openweathermap/11d.svg');}
+.wi-11n { background: url('../../assets/openweathermap/11n.svg');}
+
+.wi-13d { background: url('../../assets/openweathermap/13d.svg');}
+.wi-13n { background: url('../../assets/openweathermap/13n.svg');}
+
+.wi-50d { background: url('../../assets/openweathermap/50d.svg');}
+.wi-50n { background: url('../../assets/openweathermap/50n.svg');}
