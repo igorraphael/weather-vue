@@ -1,6 +1,6 @@
 import { defineComponent, ref, reactive, onMounted } from 'vue'
-import iconLoading from '../assets/loading.svg'
-import Error from './error'
+import iconLoading from '../../assets/loading.svg'
+import Error from '../error'
 import './index.css'
 
 
@@ -10,7 +10,7 @@ export default defineComponent({
     setup() {
 
         let currentHours = ref('')
-        setInterval(() => currentHours.value = new Date().toString().substr(16, 8), 1000) //substr(16, 5) HH:mm
+        setInterval(() => currentHours.value = new Date().toString().substr(16, 5), 1000) //substr(16, 5) HH:mm
 
         const URL_API = (lat, lon) => `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=ea51c9a4b740d49ce7b1682daea3d231`
 
@@ -109,15 +109,15 @@ export default defineComponent({
                             <div>
                                 <span class="w-info-row">
                                     <i class="wi wi-wind" />
-                                    <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
+                                    <span style={{ marginRight: '0.2em' }}>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
                                 </span>
                                 <span class="w-info-row">
                                     <i class="wi wi-humidity" />
-                                    <span style={{ marginRight: '1.7em' }}>{this.wData.humidity ? this.wData.humidity : '0'} %</span>
+                                    <span class="w-info-txt">{this.wData.humidity ? this.wData.humidity : '0'} %</span>
                                 </span>
                                 <span class="w-info-row">
                                     <i class="wi wi-clouds" />
-                                    <span style={{ marginRight: '1.7em' }}>{this.wData.clouds ? this.wData.clouds : '0'} %</span>
+                                    <span class="w-info-txt">{this.wData.clouds ? this.wData.clouds : '0'} %</span>
                                 </span>
                             </div>
                             <div class="w-degrees">
