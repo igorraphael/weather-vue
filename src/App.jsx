@@ -1,4 +1,3 @@
-import logoVue from './assets/logo.png'
 import Weather from './components/weather'
 import './index.css'
 
