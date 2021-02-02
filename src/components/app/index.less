@@ -1,0 +1,78 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+
+  box-sizing: border-box;
+}
+
+body{
+
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: #f1f1f1;
+}
+
+.root-app{
+
+    width: 100vw;
+    height: 100vh;
+    // display: grid;
+    // grid-template-columns: auto;
+    // grid-template-rows: 0.5fr auto;
+    // position: relative;
+}
+
+.header {
+
+    background: #2B244D;
+    color: white;
+
+    width: 100%;    
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.25fr;
+    grid-template-rows: 1fr;
+    box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
+    // height: 4rem;
+    height: 32px;
+    margin: 0;
+    align-items: center;
+    transition: background-color 500ms linear;
+    animation: 1s ease-in-out 0ms 1 fadein;
+}
+
+.text-today{
+
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    display: inline;
+    margin: 0.5rem 0;
+}
+
+.main-container{
+    
+    height: calc(100% - 40px);
+    width: 100%;
+    position: absolute;
+    // top: 4rem; //0
+    left: 0;
+    // z-index: -2;
+    // opacity: 0;
+    background: yellow;
+    // transition: opacity 300ms linear;
+    // border: solid 1px red;
+}
+
+
+.footer{
+
+    // border: solid 1px red;
+    background: transparent;
+    position: absolute;
+    bottom: 1rem;
+    left: 1.5rem;
+    z-index: 100;
+}
+
+
