@@ -7,7 +7,7 @@ This is a simples app of weather made with Vue3.
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3725754f-026b-4c3b-a90b-f128175be303/deploy-status)](https://app.netlify.com/sites/weather-vue3/deploys)
 
 ## Screenshot
-![screenshot](https://user-images.githubusercontent.com/38577695/106676928-8f620e80-6596-11eb-8099-b911bc30e82d.png)
+![gif-app](https://user-images.githubusercontent.com/38577695/106679340-3183f580-659b-11eb-86a6-42ebe97f6d3a.gif)
 
 ## Usage
 
