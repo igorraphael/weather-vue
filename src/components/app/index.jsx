@@ -1,6 +1,6 @@
 import { defineComponent, ref } from 'vue'
 import './index.less'
-import Menu from './left-menu'
+import Sidebar from './sidebar'
 
 export default defineComponent({
 
@@ -8,12 +8,7 @@ export default defineComponent({
 
         const collapsed = ref(false)
 
-        const handleCollapsed = is => {
-
-            // console.log('handle collapse', is)
-            console.log('handle visible...')
-            collapsed.value = is
-        }
+        const handleCollapsed = is => collapsed.value = is
         return {
 
             collapsed,
@@ -37,13 +32,12 @@ export default defineComponent({
                     </div>
                 </header>
 
-                <Menu
+                <Sidebar
                     collapse={this.collapsed}
                     onCollapse={this.handleCollapsed}
                 >
                     <div>A block simple about GXZ</div>
-                </Menu>
-
+                </Sidebar>
 
                 <div class="main-container">
 
