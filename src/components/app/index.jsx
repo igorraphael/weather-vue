@@ -41,13 +41,16 @@ export default defineComponent({
                 </Sidebar>
 
                 <div class="main-container">
-                    <Weather />
-                    <Weather />
-                    <Weather />
-                    <Weather />
+                    <div class="slider">
+                        <Weather />
+                        <Weather />
+                        <Weather />
+                    </div>
+
+                    <div class="content-weather">
+                    </div>
+
                 </div>
-
-
                 {/* <footer class="footer">
                     this is footer
                 </footer> */}

@@ -56,18 +56,23 @@ body{
     
     height: calc(100% - @height-header);
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
     padding: 20px;
-    // position: absolute;
-    // top: 4rem; //0
-    // left: 0;
-    // z-index: -2;
-    // opacity: 0;
-    // background: yellow;
-    // transition: opacity 300ms linear;
-    // border: solid 1px red;
+
+    .slider {
+
+        display: flex;
+        flex-wrap: wrap;
+        border: solid 1px red;
+    }
+
+    .content-weather {
+
+        margin-top: 20px;
+        height: calc(100% - 400px);
+        border: solid 1px blue;
+    }
 }
+
 
 
 .footer{
