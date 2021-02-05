@@ -14,6 +14,8 @@ body{
     background: #f1f1f1;
 }
 
+@height-header: 42px;
+
 .root-app{
 
     width: 100vw;
@@ -35,7 +37,7 @@ body{
     grid-template-rows: 1fr;
     box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
     // height: 4rem;
-    height: 32px;
+    height: @height-header;
     margin: 0;
     align-items: center;
     transition: background-color 500ms linear;
@@ -52,11 +54,14 @@ body{
 
 .main-container{
     
-    height: calc(100% - 40px);
+    height: calc(100% - @height-header);
     width: 100%;
-    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    // position: absolute;
     // top: 4rem; //0
-    left: 0;
+    // left: 0;
     // z-index: -2;
     // opacity: 0;
     // background: yellow;

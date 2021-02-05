@@ -1,12 +1,12 @@
 .container-w{
     
     border-radius: 10px;
-    width: 250px;
-    height: 300px;
+    width: 260px;
+    height: 320px;
     margin: 0 auto;
     background: #000000;  /* fallback for old browsers */
     background: linear-gradient(30deg, rgba(0,0,0,1) 50%, rgba(94,94,94,1) 90%);
-    padding: 25px;
+    padding: 20px;
     color: white;
 }
 .content-w{
