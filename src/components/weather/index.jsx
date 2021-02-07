@@ -1,7 +1,7 @@
 import { defineComponent, ref, reactive, onMounted } from 'vue'
-import iconLoading from '../../assets/loading.svg'
+import iconLoading from '@/assets/loading.svg'
 import Error from '../error'
-import './index.css'
+import './index.less'
 
 
 export default defineComponent({
@@ -84,43 +84,43 @@ export default defineComponent({
     render() {
 
         return (
-            <div class="container-w">
-                <div class="content-w">
+            <div class="card-w">
+                <div class="card-content">
                     {this.errorMsg && <Error message={this.errorMsg} />}
 
                     {this.loading && !this.errorMsg && (
                         <div class="content-loading">
-                            <img src={iconLoading} class="w-loading" />
+                            <img src={iconLoading} class="loading" />
                         </div>
                     )}
 
                     <div v-show={!this.loading && !this.errorMsg}>
-                        <div class="w-header">
-                            <span class="w-city">{this.wData.nameCity}</span>
-                            <span class="w-hours">{this.currentHours}</span>
+                        <div class="card-header">
+                            <span class="city">{this.wData.nameCity}</span>
+                            <span class="hours">{this.currentHours}</span>
                         </div>
-                        <div class="w-body">
+                        <div class="card-body">
                             {
-                                this.wData.weather.icon ? (<i class={`w-icon-weather wi-${this.wData.weather.icon}`} />) : ''
+                                this.wData.weather.icon ? (<i class={`icon-animated iop-${this.wData.weather.icon}`} />) : ''
                             }
-                            <span class="w-text-weather">{this.wData.weather ? this.wData.weather.description : '...'}</span>
+                            <span class="current">{this.wData.weather ? this.wData.weather.description : '...'}</span>
                         </div>
-                        <div class="w-info">
-                            <div>
-                                <span class="w-info-row">
-                                    <i class="wi wi-wind" />
+                        <div class="card-footer">
+                            <div class="data">
+                                <span class="w-row">
+                                    <i class="icon wind" />
                                     <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
                                 </span>
-                                <span class="w-info-row">
-                                    <i class="wi wi-humidity" />
-                                    <span class="w-info-txt">{this.wData.humidity ? this.wData.humidity : '0'} %</span>
+                                <span class="w-row">
+                                    <i class="icon humidity" />
+                                    <span class="mr-1">{this.wData.humidity ? this.wData.humidity : '0'} %</span>
                                 </span>
-                                <span class="w-info-row">
-                                    <i class="wi wi-clouds" />
-                                    <span class="w-info-txt">{this.wData.clouds ? this.wData.clouds : '0'} %</span>
+                                <span class="w-row">
+                                    <i class="icon clouds" />
+                                    <span class="mr-1">{this.wData.clouds ? this.wData.clouds : '0'} %</span>
                                 </span>
                             </div>
-                            <div class="w-degrees">
+                            <div class="degrees">
                                 <span>{this.wData.temp ? this.wData.temp : '0'}º</span>
                             </div>
                         </div>

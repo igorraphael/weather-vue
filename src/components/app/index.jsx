@@ -1,7 +1,8 @@
 import { defineComponent, ref } from 'vue'
 import './index.less'
 import Sidebar from './sidebar'
-import Weather from '../weather'
+// import Weather from '../weather'
+import Weather from '@/components/weather'
 
 export default defineComponent({
 
@@ -25,7 +26,7 @@ export default defineComponent({
                         <button onClick={() => this.handleCollapsed(true)}> toggle </button>
                     </div>
 
-                    <h3 class="text-today">Today</h3>
+                    <h3>Today</h3>
 
                     <div class="mode-toggle">
                         <span>Light</span>

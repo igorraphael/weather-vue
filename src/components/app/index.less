@@ -1,77 +1,54 @@
-/* Box sizing rules */
-*,
-*::before,
-*::after {
-
-  box-sizing: border-box;
-}
-
-body{
-
-    margin: 0;
-    padding: 0;
-    font-family: 'Quicksand', sans-serif;
-    background: #f1f1f1;
-}
-
-@height-header: 42px;
+@import '@/styles/var.less';
 
 .root-app{
 
     width: 100vw;
     height: 100vh;
-    // display: grid;
-    // grid-template-columns: auto;
-    // grid-template-rows: 0.5fr auto;
-    // position: relative;
-}
-
-.header {
-
-    background: #2B244D;
-    color: white;
-
-    width: 100%;    
-    display: grid;
-    grid-template-columns: 1fr 1fr 0.25fr;
-    grid-template-rows: 1fr;
-    box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
-    // height: 4rem;
-    height: @height-header;
-    margin: 0;
-    align-items: center;
-    transition: background-color 500ms linear;
-    animation: 1s ease-in-out 0ms 1 fadein;
-}
-
-.text-today{
-
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    display: inline;
-    margin: 0.5rem 0;
-}
-
-.main-container{
+    .header {
     
-    height: calc(100% - @height-header);
-    width: 100%;
-    padding: 20px;
-
-    .slider {
-
-        display: flex;
-        flex-wrap: wrap;
-        border: solid 1px red;
+        width: 100%;    
+        height: @height-header;
+        background: @bg-header;
+        color: white;
+        display: grid;
+        grid-template-columns: 1fr 1fr 0.25fr;
+        grid-template-rows: 1fr;
+        align-items: center;
+        box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
+        transition: background-color 500ms linear;
+        animation: 1s ease-in-out 0ms 1 fadein;
+    
+        & > h3 {
+    
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            display: inline;
+            margin: 0.5rem 0;
+        }
     }
-
-    .content-weather {
-
-        margin-top: 20px;
-        height: calc(100% - 400px);
-        border: solid 1px blue;
+    .main-container{
+        
+        height: calc(100% - @height-header);
+        width: 100%;
+        padding: @pg;
+    
+        .slider {
+    
+            display: flex;
+            flex-wrap: wrap;
+            border: solid 1px red;
+        }
+    
+        .content-weather {
+    
+            margin-top: 20px;
+            height: calc(100% - 400px);
+            border: solid 1px blue;
+        }
     }
 }
+
+
 
 
 
