@@ -1,7 +1,7 @@
 import { defineComponent, ref } from 'vue'
 import './index.less'
+import Newsletters from '@/components/newsletters'
 import Sidebar from './sidebar'
-// import Weather from '../weather'
 import Weather from '@/components/weather'
 
 export default defineComponent({
@@ -45,16 +45,15 @@ export default defineComponent({
                     <div class="slider">
                         <Weather />
                         <Weather />
-                        <Weather />
+                        {/* <Weather /> */}
                     </div>
 
                     <div class="content-weather">
+                        <Newsletters />
                     </div>
 
                 </div>
-                {/* <footer class="footer">
-                    this is footer
-                </footer> */}
+
             </div>
         )
     }
