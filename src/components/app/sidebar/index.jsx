@@ -1,4 +1,5 @@
 import { defineComponent, Transition, toRef } from 'vue'
+import logo from '@/assets/logo-dark.webp'
 import './index.less'
 
 export default defineComponent({
@@ -26,7 +27,10 @@ export default defineComponent({
                 <Transition name="slide-fade">
                     {this.isVisible &&
                         <div class="sidebar-panel">
+
                             {this.$slots.default()}
+                            <img src={logo} />
+                            <a href="#">www.gxz.com.br</a>
                         </div>
                     }
                 </Transition>
