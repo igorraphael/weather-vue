@@ -3,15 +3,18 @@
 @height-header: 48px;
 @bg-header: #2B244D;
 
+//logo
+.bg-img(@img) {
+    background-image:url("@{img}");
+}
+
 //padding
 @pg: 2rem;
 
 //radius
 @radius: 1.75rem;
 
-
 //card weather
-
 @card-txt: white;
 .bg-linear(@colorOne, @colorTwo ){
     background: linear-gradient(30deg, @colorOne 50%, @colorTwo 90%);

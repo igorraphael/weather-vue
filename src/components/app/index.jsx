@@ -22,8 +22,12 @@ export default defineComponent({
         return (
             <div class="root-app">
                 <header class="header">
-                    <div class="left-section">
-                        <button onClick={() => this.handleCollapsed(true)}> toggle </button>
+                    <div class="menu">
+                        {/* <button onClick={() => this.handleCollapsed(true)}> toggle </button> */}
+
+                        <i class="icon" />
+                        <div id="logo" />
+                        <span>Weather</span>
                     </div>
 
                     <h3>Today</h3>
