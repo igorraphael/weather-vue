@@ -1,10 +1,12 @@
 @import '@/styles/var.less';
 
+@iconSize: 8.5em;
+
 .card-w{
     
     border-radius: @radius;
     min-width: 17rem;
-    min-height: 17rem;
+    min-height: 25rem;
     margin: 0 auto;
    .bg-linear(rgba(0,0,0,1), rgba(94,94,94,1));//background
     padding: 18px;
@@ -28,6 +30,7 @@
         
             display: flex;
             justify-content: space-between;
+            margin-top: .5em;
             .city{
             
                 display: inline-block;
@@ -47,14 +50,14 @@
 
         .card-body{
 
-            margin: 2em 0;
+            margin: 2em 0 3.5em 0;
             display: flex;
             flex-direction: column;
             text-align: center;
             .icon-animated{
     
-                width: 100px;
-                height: 100px;
+                width: @iconSize;
+                height: @iconSize;
                 margin: 0px auto;
                 &.iop-01d { .icon-Animated('01d'); }
                 &.iop-01n { .icon-Animated('01n'); }
@@ -82,7 +85,7 @@
         }
         .card-footer{
 
-            height: 100%;
+            // height: 100%;
             display: flex;
             flex-direction: row;
             justify-content: space-between;

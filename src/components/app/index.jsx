@@ -45,7 +45,7 @@ export default defineComponent({
                     <div class="slider">
                         <Weather />
                         <Weather />
-                        {/* <Weather /> */}
+                        <Weather />
                     </div>
 
                     <div class="content-weather">

@@ -93,38 +93,39 @@ export default defineComponent({
                             <img src={iconLoading} class="loading" />
                         </div>
                     )}
-
-                    <div v-show={!this.loading && !this.errorMsg}>
-                        <div class="card-header">
-                            <span class="city">{this.wData.nameCity}</span>
-                            <span class="hours">{this.currentHours}</span>
-                        </div>
-                        <div class="card-body">
-                            {
-                                this.wData.weather.icon ? (<i class={`icon-animated iop-${this.wData.weather.icon}`} />) : ''
-                            }
-                            <span class="current">{this.wData.weather ? this.wData.weather.description : '...'}</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="data">
-                                <span class="w-row">
-                                    <i class="icon wind" />
-                                    <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
-                                </span>
-                                <span class="w-row">
-                                    <i class="icon humidity" />
-                                    <span class="mr-1">{this.wData.humidity ? this.wData.humidity : '0'} %</span>
-                                </span>
-                                <span class="w-row">
-                                    <i class="icon clouds" />
-                                    <span class="mr-1">{this.wData.clouds ? this.wData.clouds : '0'} %</span>
-                                </span>
+                    {!this.loading && !this.errorMsg && (
+                        <>
+                            <div class="card-header">
+                                <span class="city">{this.wData.nameCity}</span>
+                                <span class="hours">{this.currentHours}</span>
                             </div>
-                            <div class="degrees">
-                                <span>{this.wData.temp ? this.wData.temp : '0'}º</span>
+                            <div class="card-body">
+                                {
+                                    this.wData.weather.icon ? (<i class={`icon-animated iop-${this.wData.weather.icon}`} />) : ''
+                                }
+                                <span class="current">{this.wData.weather ? this.wData.weather.description : '...'}</span>
                             </div>
-                        </div>
-                    </div>
+                            <div class="card-footer">
+                                <div class="data">
+                                    <span class="w-row">
+                                        <i class="icon wind" />
+                                        <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
+                                    </span>
+                                    <span class="w-row">
+                                        <i class="icon humidity" />
+                                        <span class="mr-1">{this.wData.humidity ? this.wData.humidity : '0'} %</span>
+                                    </span>
+                                    <span class="w-row">
+                                        <i class="icon clouds" />
+                                        <span class="mr-1">{this.wData.clouds ? this.wData.clouds : '0'} %</span>
+                                    </span>
+                                </div>
+                                <div class="degrees">
+                                    <span>{this.wData.temp ? this.wData.temp : '0'}º</span>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         )
