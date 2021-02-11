@@ -4,18 +4,19 @@ import { MenuOutlined } from '@ant-design/icons-vue'
 import pt_BR from 'ant-design-vue/es/locale-provider/pt_BR'
 import { defineComponent, ref } from 'vue'
 import './index.less'
+import Sidebar from './sidebar'
 
 export default defineComponent({
 
     setup() {
 
-        const collapsed = ref(false)
+        const visible = ref(false)
 
-        const handleCollapsed = is => collapsed.value = is
+        const handleClick = is => visible.value = is
         return {
 
-            collapsed,
-            handleCollapsed
+            visible,
+            handleClick
         }
     },
     render() {
@@ -25,7 +26,10 @@ export default defineComponent({
                 <div id="main">
                     <div class="top-header">
                         <div class="left">
-                            <MenuOutlined />
+                            <MenuOutlined onClick={() => this.handleClick(true)} />
+
+                            <Sidebar visible={this.visible} onVisibleChange={(visible) => this.visible = visible} />
+
                             <div id="logo" />
                             <span>Weather</span>
                         </div>
@@ -37,15 +41,12 @@ export default defineComponent({
                             <a-switch />
                         </div>
                     </div>
-
                     <div id="container">
                         <a-row gutter={[48, 48]}>
                             {
                                 [...Array(3)].map((i, idx) => (
-                                    <a-col {...{ sm: 24, md: 10, lg: 8, xl: 6 }}>
-
+                                    <a-col {...{ sm: 24, md: 10, lg: 8, xl: 5 }}>
                                         <Weather />
-
                                     </a-col>
                                 ))
                             }

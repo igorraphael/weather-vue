@@ -1,4 +1,4 @@
-import { defineComponent, Transition, toRef } from 'vue'
+import { defineComponent, toRef } from 'vue'
 import logo from '@/assets/logo-dark.webp'
 import './index.less'
 
@@ -7,11 +7,11 @@ export default defineComponent({
     name: 'Sidebar',
     props: {
 
-        collapse: { type: Boolean, required: true }
+        visible: { type: Boolean, required: true }
     },
     setup(props) {
 
-        const isVisible = toRef(props, 'collapse')
+        const isVisible = toRef(props, 'visible')
 
         return {
 
@@ -21,20 +21,21 @@ export default defineComponent({
     render() {
 
         return (
-            <aside class="sidebar">
-                {this.isVisible && <div class="sidebar-backdrop" onClick={() => this.$emit('collapse', !this.isVisible)} />}
+            <a-drawer
+                placement="left"
+                width={300}
+                visible={this.isVisible}
+                onClose={() => this.$emit('visibleChange', !this.isVisible)}
+            >
+                <div style="text-align: center">
+                    <a href="https://gxz.com.br" target="_blank">
 
-                <Transition name="slide-fade">
-                    {this.isVisible &&
-                        <div class="sidebar-panel">
+                        <img src={logo} alt="logo-gxz" />
+                        <span style="display: block; margin-top: 1em">Visite-nós</span>
+                    </a>
 
-                            {this.$slots.default()}
-                            <img src={logo} />
-                            <a href="#">www.gxz.com.br</a>
-                        </div>
-                    }
-                </Transition>
-            </aside>
+                </div>
+            </a-drawer>
         )
     }
 })
