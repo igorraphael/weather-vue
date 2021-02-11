@@ -82,7 +82,7 @@ export default defineComponent({
                         renderItem={({ item }) => (
 
                             <a-list-item>
-                                <a-card class="card-day">
+                                <a-card class="card-day" bordered={false}>
                                     <h2 class="day-week">{item.dia}</h2>
                                     <i class="icon sun" />
                                     <span>{item.grau} º</span>
