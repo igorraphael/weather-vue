@@ -5,10 +5,11 @@
 .newsletter{
 
     margin-top: 4em !important;
-    background: white;
+    background: @background-color-light;
     height: 100%;
     width: 100%;
     border-radius: 1.75rem;
+    box-shadow: 0 0 .5rem @shadow-color;
     .tt-feed {  
         .tt-header {
             
@@ -24,6 +25,10 @@
 
             border-right: solid 5px #c3c3c3;
             border-radius: 1.2em;
+            .tt-username{
+
+                color: #16d9ad;
+            }
             .avatar{
 
                 width: 52px;
@@ -37,6 +42,11 @@
 
             height: 280px;
             text-align: center;
+            background: @background-color-light;
+            h2{
+                color: #16d9ad;
+                font-weight: bold;
+            }
             .icon {
 
                 margin: 0 auto;

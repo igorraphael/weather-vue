@@ -7,9 +7,11 @@
     min-width: 280px;
     max-width: 280px;
     border-radius: 1.75rem;
-   .bg-linear(rgba(0,0,0,1), rgba(94,94,94,1));//background
+//    .bg-linear(rgba(0,0,0,1), rgba(94,94,94,1));//background
+    box-shadow: 0 0 .5rem @shadow-color;
+    background-color: @background-color-light;
     padding: 1.2em;
-    color: white;
+    // color: white;
     .card-content{
         
         width: 100%;
@@ -35,9 +37,9 @@
                 display: inline-block;
                 height: auto;
                 padding: 3px 10px;
-                border: 1px solid rgba(163, 163, 163, 0.5);
+                border: 1px solid @border-color-base;
                 border-radius: 3px;
-                background: #292929;
+                box-shadow: 0 0 .1rem @shadow-color;
                 font-size: 14px;
             }
             .hours{

@@ -65,7 +65,7 @@ export default defineComponent({
                         renderItem={({ item }) => (
                             <a-list-item key={item.id}>
                                 <a-list-item-meta v-slots={{
-                                    title: () => <a href="#">@{item.username}</a>,
+                                    title: () => <a href="#" class="tt-username">@{item.username}</a>,
                                     avatar: () => <img class="avatar" src={Avatar} onError={(e) => console.log(e)} />
                                 }}
                                     description={`${item.tweet}`}
