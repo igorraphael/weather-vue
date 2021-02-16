@@ -7,11 +7,10 @@
     min-width: 280px;
     max-width: 280px;
     border-radius: 1.75rem;
-//    .bg-linear(rgba(0,0,0,1), rgba(94,94,94,1));//background
-    box-shadow: 0 0 .5rem @shadow-color;
-    background-color: @background-color-light;
+    // .bg-linear(rgba(0,0,0,1), rgba(94,94,94,1));//background
+    box-shadow: .5rem .5rem .5rem @shadow-color;
+    background-color: @body-background;
     padding: 1.2em;
-    // color: white;
     .card-content{
         
         width: 100%;
@@ -85,7 +84,6 @@
             }
         }
         .card-footer{
-
             // height: 100%;
             display: flex;
             flex-direction: row;
@@ -105,10 +103,10 @@
                     margin: 0;
                     width: 18px; 
                     height: 18px;
-                    &.wind { background: url('../../assets/wind.svg');}
-                    &.humidity { background: url('../../assets/humidity.svg');}
+                    &.wind { background: url('../../assets/wind-color.svg');}
+                    &.humidity { background: url('../../assets/humidity-color.svg');}
                     &.sunny { background: url('../../assets/sunny.svg');}
-                    &.clouds { background: url('../../assets/clouds.svg');}
+                    &.clouds { background: url('../../assets/clouds-color.svg');}
                 }
                 .mr-1{
                     
@@ -120,6 +118,7 @@
                 font-size: 55px;
                 font-weight: 300;
                 padding-top: 12px;
+                
             }
         }   
     }

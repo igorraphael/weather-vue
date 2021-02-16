@@ -7,21 +7,18 @@
 #main{
 
     width: 100%;
-    height: 100%;
+    height: 1005;
     font-family: 'Quicksand', sans-serif;
     .top-header{
 
         width: 100%;
         height: @layout-header-height;
-        // background: @bg-header;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0 3em;
         font-weight: bold;
-        box-shadow: 0 0 2rem @shadow-color;
-        background-color: @background-color-light;
-        
+        background: @body-background;
         .left{
 
             display:flex;
@@ -41,16 +38,16 @@
         }
         h3 {
             font-weight: bold; 
-            color:#16d9ad;
+            // color:#16d9ad;
         }
     }
     #container{
         
         width: 100%;
         height: calc(100% - @layout-header-height);
-        // border: solid 1px blue;
         padding: 5em;
         background: @layout-body-background;
+        
     }   
 }
 //sidebar

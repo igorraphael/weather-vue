@@ -15,9 +15,9 @@ export default defineComponent({
                     <Header />
 
                     <div id="container">
-                        <a-row gutter={[48, 48]} justify="space-around">
+                        <a-row justify="center">
                             {
-                                [...Array(3)].map((i, idx) => (
+                                [...Array(2)].map((i, idx) => (
                                     <a-col {...{ sm: 14, md: 12, lg: 10, xl: 6 }}>
                                         <Weather />
                                     </a-col>
@@ -25,7 +25,7 @@ export default defineComponent({
                             }
                         </a-row>
 
-                        <Newsletters />
+                        <Newsletters v-show={true}/>
                     </div>
                 </div>
             </a-config-provider>
