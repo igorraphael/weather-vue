@@ -1,12 +1,13 @@
-import { defineComponent, ref, reactive, onMounted } from 'vue'
 import iconLoading from '@/assets/loading.svg'
+import { defineComponent, onMounted, reactive, ref, Transition } from 'vue'
+import InlineSvg from 'vue-inline-svg'
 import Error from '../error'
+import pathIcons from './iconsPath'
 import './index.less'
-
 
 export default defineComponent({
 
-    name: 'Whater',
+    name: 'Weather',
     setup() {
 
         let currentHours = ref('')
@@ -30,30 +31,33 @@ export default defineComponent({
 
         onMounted(() => {
 
-            getLocation().then(position => {
+            setTimeout(() => {
 
-                // loading.value = true
+                getLocation().then(position => {
 
-                const { latitude, longitude } = position.coords
+                    // loading.value = true
 
-                fetch(URL_API(latitude, longitude)).then(response => response.json()).then(data => {
+                    const { latitude, longitude } = position.coords
 
-                    const { main, name, wind, clouds, weather } = data
+                    fetch(URL_API(latitude, longitude)).then(response => response.json()).then(data => {
 
-                    wData.nameCity = name
-                    wData.humidity = main.humidity
-                    wData.clouds = clouds.all
-                    wData.temp = Math.round(main.temp)
-                    wData.wind = wind.speed * 3.6
-                    wData.weather = weather[0]
+                        const { main, name, wind, clouds, weather } = data
 
-                }).catch(err => {
+                        wData.nameCity = name
+                        wData.humidity = main.humidity
+                        wData.clouds = clouds.all
+                        wData.temp = Math.round(main.temp)
+                        wData.wind = wind.speed * 3.6
+                        wData.weather = weather[0]
 
-                    console.log(err)
+                    }).catch(err => {
 
-                }).finally(() => loading.value = false)
+                        console.log(err)
 
-            }).catch(e => errorMsg.value = e.message)
+                    }).finally(() => loading.value = false)
+
+                }).catch(e => errorMsg.value = e.message)
+            }, 2000)
         })
 
         async function getLocation() {
@@ -83,16 +87,24 @@ export default defineComponent({
     },
     render() {
 
+        const iconProps = {
+
+            src: this.wData.weather.icon ? pathIcons(this.wData.weather.icon) : '',
+            width: '8.5em',
+            height: '8.5em'
+        }
+
         return (
             <div class="card-w">
                 <div class="card-content">
                     {this.errorMsg && <Error message={this.errorMsg} />}
-
-                    {this.loading && !this.errorMsg && (
-                        <div class="content-loading">
-                            <img src={iconLoading} class="loading" />
-                        </div>
-                    )}
+                    <Transition name="fade">
+                        {this.loading &&
+                            <div class="content-loading">
+                                <InlineSvg src={iconLoading} width="9em" height="9em" style={{ margin: '5em auto' }} />
+                            </div>
+                        }
+                    </Transition>
                     {!this.loading && !this.errorMsg && (
                         <>
                             <div class="card-header">
@@ -100,9 +112,9 @@ export default defineComponent({
                                 <span class="hours">{this.currentHours}</span>
                             </div>
                             <div class="card-body">
-                                {
-                                    this.wData.weather.icon ? (<i class={`icon-animated iop-${this.wData.weather.icon}`} />) : ''
-                                }
+
+                                <InlineSvg {...iconProps} class="icon-animated" />
+
                                 <span class="current">{this.wData.weather ? this.wData.weather.description : '...'}</span>
                             </div>
                             <div class="card-footer">

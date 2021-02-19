@@ -1,7 +1,13 @@
 @import '@/styles/var.less';
 
 @iconSize: 8.5em;
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .2s ease;
+}
 
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+}
 .card-w{
     
     min-width: 280px;
@@ -20,11 +26,6 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            .loading{
-
-                width: 90px;
-                height: 100%;
-            }
         }
         .card-header{
         
@@ -56,27 +57,7 @@
             text-align: center;
             .icon-animated{
     
-                width: @iconSize;
-                height: @iconSize;
                 margin: 0px auto;
-                &.iop-01d { .icon-Animated('01d'); }
-                &.iop-01n { .icon-Animated('01n'); }
-                &.iop-02d { .icon-Animated('02d'); }
-                &.iop-02n { .icon-Animated('02n'); }
-                &.iop-03d { .icon-Animated('03d'); }
-                &.iop-03n { .icon-Animated('03n'); }
-                &.iop-04d { .icon-Animated('04d'); }
-                &.iop-04n { .icon-Animated('04n'); }
-                &.iop-09d { .icon-Animated('09d'); }
-                &.iop-09n { .icon-Animated('09n'); }
-                &.iop-10d { .icon-Animated('10d'); }
-                &.iop-10n { .icon-Animated('10n'); }
-                &.iop-11d { .icon-Animated('11d'); }
-                &.iop-11n { .icon-Animated('11n'); }
-                &.iop-13d { .icon-Animated('13d'); }
-                &.iop-13n { .icon-Animated('13n'); }
-                &.iop-50d { .icon-Animated('50d'); }
-                &.iop-50n { .icon-Animated('50n'); }
             }
             .current{
 

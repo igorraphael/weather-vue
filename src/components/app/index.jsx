@@ -15,17 +15,17 @@ export default defineComponent({
                     <Header />
 
                     <div id="container">
-                        <a-row justify="center">
+                        <a-row justify="center" gutter={[0, 16]}>
                             {
                                 [...Array(2)].map((i, idx) => (
-                                    <a-col {...{ sm: 14, md: 12, lg: 10, xl: 6 }}>
+                                    <a-col {...{ sm: 14, md: 12, lg: 10, xl: 8 }}>
                                         <Weather />
                                     </a-col>
                                 ))
                             }
                         </a-row>
 
-                        <Newsletters v-show={true}/>
+                        <Newsletters v-show={true} />
                     </div>
                 </div>
             </a-config-provider>
