@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onBeforeMount } from 'vue'
 import Avatar from '@/assets/avatar.jpg'
 import './index.less'
 
