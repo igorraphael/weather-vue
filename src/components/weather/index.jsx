@@ -1,5 +1,5 @@
 import iconLoading from '@/assets/loading.svg'
-import { defineComponent, onMounted, reactive, ref, Transition } from 'vue'
+import { defineComponent, onMounted, reactive, ref, Transition, h } from 'vue'
 import InlineSvg from 'vue-inline-svg'
 import Error from '../error'
 import pathIcons from './iconsPath'
@@ -57,7 +57,7 @@ export default defineComponent({
                     }).finally(() => loading.value = false)
 
                 }).catch(e => errorMsg.value = e.message)
-            }, 2000)
+            }, 3000)
         })
 
         async function getLocation() {
@@ -96,49 +96,40 @@ export default defineComponent({
 
         return (
             <div class="card-w">
-                <div class="card-content">
-                    {this.errorMsg && <Error message={this.errorMsg} />}
-                    <Transition name="fade">
-                        {this.loading &&
-                            <div class="content-loading">
-                                <InlineSvg src={iconLoading} width="9em" height="9em" style={{ margin: '5em auto' }} />
-                            </div>
-                        }
-                    </Transition>
-                    {!this.loading && !this.errorMsg && (
-                        <>
-                            <div class="card-header">
-                                <span class="city">{this.wData.nameCity}</span>
-                                <span class="hours">{this.currentHours}</span>
-                            </div>
-                            <div class="card-body">
 
-                                <InlineSvg {...iconProps} class="icon-animated" />
+                <a-spin spinning={this.loading} size="large" tip="Aguarde...">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <span class="city">{this.wData.nameCity}</span>
+                            <span class="hours">{this.currentHours}</span>
+                        </div>
+                        <div class="card-body">
 
-                                <span class="current">{this.wData.weather ? this.wData.weather.description : '...'}</span>
+                            <InlineSvg {...iconProps} class="icon-animated" />
+
+                            <span class="current">{this.wData.weather ? this.wData.weather.description : '...'}</span>
+                        </div>
+                        <div class="card-footer">
+                            <div class="data">
+                                <span class="w-row">
+                                    <i class="icon wind" />
+                                    <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
+                                </span>
+                                <span class="w-row">
+                                    <i class="icon humidity" />
+                                    <span class="mr-1">{this.wData.humidity ? this.wData.humidity : '0'} %</span>
+                                </span>
+                                <span class="w-row">
+                                    <i class="icon clouds" />
+                                    <span class="mr-1">{this.wData.clouds ? this.wData.clouds : '0'} %</span>
+                                </span>
                             </div>
-                            <div class="card-footer">
-                                <div class="data">
-                                    <span class="w-row">
-                                        <i class="icon wind" />
-                                        <span>{this.wData.wind ? Number.parseFloat(this.wData.wind).toPrecision(2) : '0'} km/h</span>
-                                    </span>
-                                    <span class="w-row">
-                                        <i class="icon humidity" />
-                                        <span class="mr-1">{this.wData.humidity ? this.wData.humidity : '0'} %</span>
-                                    </span>
-                                    <span class="w-row">
-                                        <i class="icon clouds" />
-                                        <span class="mr-1">{this.wData.clouds ? this.wData.clouds : '0'} %</span>
-                                    </span>
-                                </div>
-                                <div class="degrees">
-                                    <span>{this.wData.temp ? this.wData.temp : '0'}º</span>
-                                </div>
+                            <div class="degrees">
+                                <span>{this.wData.temp ? this.wData.temp : '0'}º</span>
                             </div>
-                        </>
-                    )}
-                </div>
+                        </div>
+                    </div>
+                </a-spin>
             </div>
         )
     }

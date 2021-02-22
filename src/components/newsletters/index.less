@@ -2,15 +2,41 @@
 
 @size: 9em;
 
+.block-init{
+
+    background: @body-background;
+    height: 100%;
+    width: 100%;
+    border-radius: 1.75rem;
+    box-shadow: .5rem .5rem .5rem @shadow-color;
+    max-width: 60%;
+    margin: 7em auto;
+    padding: 1.5em;
+    text-align: center;
+    .ant-col {
+        > p {
+            font-size: 16px;
+        }
+    }
+}
+
 .newsletter{
 
+    // padding: 1em;
     margin-top: 4em !important;
     background: @body-background;
     height: 100%;
     width: 100%;
     border-radius: 1.75rem;
     box-shadow: .5rem .5rem .5rem @shadow-color;
+
+    &.empty{
+
+       
+    }
     .tt-feed {  
+
+        padding: 24px;
         .tt-header {
             
             display: flex;
