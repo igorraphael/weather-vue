@@ -2,7 +2,6 @@
 
 @size: 9em;
 
-//transition
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s ease;
 }
@@ -38,11 +37,6 @@
     width: 100%;
     border-radius: 1.75rem;
     box-shadow: .5rem .5rem .5rem @shadow-color;
-
-    &.empty{
-
-       
-    }
     .tt-feed {  
 
         padding: 24px;
@@ -60,6 +54,27 @@
 
             border-right: solid 5px #c3c3c3;
             border-radius: 1.2em;
+            .ant-spin-nested-loading{
+                > div {
+                    > .ant-spin {
+                        > .ant-spin-dot{
+            
+                            position: static;
+                            top: 0;
+                            left: 0;
+                            margin: 4em 2em 0 0;
+                        }
+                    }
+                }
+                .indicator-loading{
+
+                    width: 3em;
+                    height: 3em;
+                }
+                .ant-spin-blur {
+                    opacity: 0.2;
+                }
+            }
             .tt-username{
 
                 color: #16d9ad;
@@ -73,6 +88,28 @@
         }
     }
     .week-days{
+
+            .ant-spin-nested-loading{
+                > div {
+                    > .ant-spin {
+                        > .ant-spin-dot{
+            
+                            position: static;
+                            top: 0;
+                            left: 0;
+                            margin: 6em 2em 0 0;
+                        }
+                    }
+                }
+                .indicator-loading{
+
+                    width: 3em;
+                    height: 3em;
+                }
+                .ant-spin-blur {
+                    opacity: 0.2;
+                }
+            }
         .card-day{
 
             height: 280px;

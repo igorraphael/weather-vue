@@ -1,4 +1,5 @@
-import { defineComponent, onMounted, reactive, ref, Transition, h } from 'vue'
+import loadingSVG from '@/assets/loading-white.svg'
+import { defineComponent, onBeforeMount, reactive, ref } from 'vue'
 import InlineSvg from 'vue-inline-svg'
 import Error from '../error'
 import pathIcons from './iconsPath'
@@ -7,9 +8,8 @@ import './index.less'
 export default defineComponent({
 
     name: 'Weather',
-    emits: ['handleClick'],
 
-    setup() {
+    setup(props, { emit }) {
 
         let currentHours = ref('')
         setInterval(() => currentHours.value = new Date().toString().substr(16, 5), 1000) //substr(16, 5) HH:mm
@@ -28,9 +28,9 @@ export default defineComponent({
 
         const errorMsg = ref('')
 
-        const loading = ref(true)
+        let loading = ref(true)
 
-        onMounted(() => {
+        onBeforeMount(() => {
 
             setTimeout(() => {
 
@@ -39,6 +39,8 @@ export default defineComponent({
                     // loading.value = true
 
                     const { latitude, longitude } = position.coords
+
+                    emit('coords', { lat: latitude, lon: longitude })
 
                     fetch(URL_API(latitude, longitude)).then(response => response.json()).then(data => {
 
@@ -58,7 +60,7 @@ export default defineComponent({
                     }).finally(() => loading.value = false)
 
                 }).catch(e => errorMsg.value = e.message)
-            }, 3000)
+            }, 2000)
         })
 
         async function getLocation() {
@@ -77,6 +79,7 @@ export default defineComponent({
 
             });
         }
+
 
         return {
 
@@ -97,7 +100,9 @@ export default defineComponent({
 
         return (
             <div class="card-w" onClick={() => this.$emit('handleClick', this.wData.nameCity)}>
-                <a-spin spinning={this.loading} size="large" tip="Aguarde...">
+                <a-spin spinning={this.loading} v-slots={{
+                    indicator: () => <span class="indicator-loading"><InlineSvg src={loadingSVG} /></span>
+                }}>
                     <div class="card-content">
                         <div class="card-header">
                             <span class="city">{this.wData.nameCity}</span>

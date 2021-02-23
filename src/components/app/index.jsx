@@ -1,7 +1,7 @@
 import Newsletters from '@/components/newsletters'
 import Weather from '@/components/weather'
 import pt_BR from 'ant-design-vue/es/locale-provider/pt_BR'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import Header from './header'
 import './index.less'
 
@@ -40,19 +40,31 @@ export default defineComponent({
 
     setup() {
 
-        let city = ref('nome-antigo')
+        let currentCity = reactive({
 
-        const handleClickCity = (value) => {
+            name: '',
+            coords: {
+
+                lat: 0,
+                lon: 0
+            },
+        })
+
+
+        const handleCoords = (coords) => currentCity.coords = coords
+
+        const handleClick = (value) => {
 
             if (!value) return
 
-            city.value = value
+            currentCity.name = value
         }
 
         return {
 
-            handleClickCity,
-            city
+            handleCoords,
+            handleClick,
+            currentCity
         }
     },
     render() {
@@ -65,12 +77,15 @@ export default defineComponent({
                 <div id="container">
                     <a-row justify="center" gutter={[18, 18]}>
 
-                        <Weather onHandleClick={this.handleClickCity} />
+                        <Weather
+                            onHandleClick={this.handleClick}
+                            onCoords={this.handleCoords}
+                        />
 
                         <NewCity />
 
                     </a-row>
-                    <Newsletters nameCity={this.city} />
+                    <Newsletters city={this.currentCity} />
                 </div>
             </div>
             // </a-config-provider>
