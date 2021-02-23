@@ -1,4 +1,3 @@
-import iconLoading from '@/assets/loading.svg'
 import { defineComponent, onMounted, reactive, ref, Transition, h } from 'vue'
 import InlineSvg from 'vue-inline-svg'
 import Error from '../error'
@@ -8,6 +7,8 @@ import './index.less'
 export default defineComponent({
 
     name: 'Weather',
+    emits: ['handleClick'],
+
     setup() {
 
         let currentHours = ref('')
@@ -95,8 +96,7 @@ export default defineComponent({
         }
 
         return (
-            <div class="card-w">
-
+            <div class="card-w" onClick={() => this.$emit('handleClick', this.wData.nameCity)}>
                 <a-spin spinning={this.loading} size="large" tip="Aguarde...">
                     <div class="card-content">
                         <div class="card-header">

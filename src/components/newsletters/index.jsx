@@ -1,4 +1,4 @@
-import { defineComponent, ref, onBeforeMount } from 'vue'
+import { defineComponent, ref, toRef, watch, Transition } from 'vue'
 import Avatar from '@/assets/avatar.jpg'
 import './index.less'
 
@@ -47,16 +47,42 @@ const days = [
     },
 ];
 
+const WelcomeBlock = () => (
+    <a-row class="block-init">
+        <a-col {...{ sm: 24, md: 24, lg: 24, xl: 24 }}>
+            <h1>Welcome!</h1>
+            <p>xWeather is a simple application of weather with base your location and some tweets about your place.</p>
+            <p>This app is development, for more information check the repository in <a href="#" target="_blank">Github</a>.</p>
+        </a-col>
+    </a-row>
+)
+
 export default defineComponent({
+
+    props: {
+
+        nameCity: { type: String, required: true }
+    },
 
     name: 'Newsletters',
 
-    setup() {
+    setup(props) {
 
-        const hasCity = ref(false)
+
+        const city = toRef(props, 'nameCity')
+
+        let hasCity = ref(false)
+
+        // console.log(hasCity.value)
+
+        watch(() => city.value, (value) => {
+
+            if (value) hasCity.value = true
+        })
 
         return {
 
+            city,
             hasCity
         }
     },
@@ -64,20 +90,14 @@ export default defineComponent({
 
         return (
             <>
-                {!this.hasCity ?
-                    <a-row class="block-init">
-                        <a-col {...{ sm: 24, md: 24, lg: 24, xl: 24 }}>
-                            <h1>Welcome!</h1>
-                            <p>xWeather is a simple application of weather with base your location and some tweets about your place.</p>
-                            <p>This app is development, for more information check the repository in <a href="#" target="_blank">Github</a>.</p>
-                        </a-col>
-                    </a-row>
-                    :
-                    <a-row class="newsletter">
+                <WelcomeBlock v-show={!this.hasCity} />
+
+                <Transition name="fade">
+                    <a-row v-show={this.hasCity} class="newsletter">
                         <a-col {...{ sm: 24, md: 24, lg: 24, xl: 8 }} class="tt-feed">
                             <div class="tt-header">
                                 <h2>Twitter Feed</h2>
-                                <span>#City</span>
+                                <span>#{this.city}</span>
                             </div>
                             <a-list
                                 class="tt-content"
@@ -113,7 +133,7 @@ export default defineComponent({
                             />
                         </a-col>
                     </a-row>
-                }
+                </Transition>
             </>
         )
     }
