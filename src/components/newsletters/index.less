@@ -1,6 +1,6 @@
 @import '@/styles/var.less';
 
-@size: 9em;
+@size: 1.6em;
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s ease;
@@ -88,7 +88,6 @@
         }
     }
     .week-days{
-
             .ant-spin-nested-loading{
                 > div {
                     > .ant-spin {
@@ -121,17 +120,25 @@
             }
             .icon {
                 
-                margin: 0 auto;
                 display: block;
+                padding: 0;
+                margin: 0;
                 width: @size; 
                 height: @size;
-                &.sun { background: url('../../assets/openweathermap/03d.svg');}
+                &.max { background: url('../../assets/temp-max.svg');}
+                &.min { background: url('../../assets/temp-min.svg');}
             }
             .ant-card-body{
 
-                > span {
-
-                    display: block;
+                .ant-space {
+                    .ant-space-item {
+                        .ant-row {
+                            > span.span-temp{
+                                
+                                font-size: 1.5em;
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -1,15 +1,20 @@
 import Avatar from '@/assets/avatar.jpg'
 import loadingSVG from '@/assets/loading-white.svg'
 import { Spin } from 'ant-design-vue'
-import { defineComponent, ref, toRef, Transition, watch } from 'vue'
+import { defineComponent, reactive, ref, Transition, watch } from 'vue'
+
 import InlineSvg from 'vue-inline-svg'
+import pathIcons from '@/components/weather/iconsPath'
 import './index.less'
+
+import Icon from '@ant-design/icons-vue';
+import tempMax from '@/assets/temp-max.svg'
+
 
 Spin.setDefaultIndicator({
 
     indicator: () => <div class="indicator-loading"><InlineSvg src={loadingSVG} width="3em" height="3em" /></div>
-});
-
+})
 
 const tweets = [
     {
@@ -27,34 +32,9 @@ const tweets = [
         username: 'fr0st_88',
         tweet: 'Lorem ipsun lorem ipsun lorem ipsun'
     },
-];
+]
 
-const days = [
-    {
-        id: 1,
-        dia: 'SEG',
-        grau: 24,
-        label: 'SOL'
-    },
-    {
-        id: 2,
-        dia: 'TER',
-        grau: 15,
-        label: 'CHUVA'
-    },
-    {
-        id: 3,
-        dia: 'QUA',
-        grau: 20,
-        label: 'NUBALDO'
-    },
-    {
-        id: 4,
-        dia: 'QUI',
-        grau: 26,
-        label: 'SOL'
-    },
-];
+const daysOfWeek = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB']
 
 const WelcomeBlock = () => (
     <a-row class="block-init">
@@ -81,6 +61,10 @@ export default defineComponent({
 
         let hasCity = ref(false)
 
+        let weekData = reactive([])
+        let loading = ref(false)
+
+
         watch(() => props.city.name, (value) => {
 
             if (value) {
@@ -90,47 +74,73 @@ export default defineComponent({
 
                 const { lat, lon } = props.city.coords
 
-                callApi(lat, lon)
+                handleApiWeather(lat, lon)
             }
         })
 
-        const API_URL = (lat, lon) => `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&exclude=current,minutely,hourly,alerts&appid=ea51c9a4b740d49ce7b1682daea3d231`
+        const WEATHER_API = (lat, lon) => `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&exclude=current,minutely,hourly,alerts&appid=ea51c9a4b740d49ce7b1682daea3d231`
 
+        const handleApiWeather = (lat, lon) => {
 
-        const callApi = (lat, lon) => {
+            loading.value = true
 
-            fetch(API_URL(lat, lon)).then(response => response.json()).then(data => {
+            fetch(WEATHER_API(lat, lon)).then(response => response.json()).then(data => {
 
                 if (data) {
 
                     const { daily } = data
 
-                    let arrDays = []
-                    daily.map(i => {
+                    for (let i = 1; i < 5; i++) {
 
-                        let current = new Date(i.dt * 1000)
-                        arrDays.push({
+                        let current = new Date(daily[i].dt * 1000)
+                        let numDay = current.getDay()
+
+                        weekData.push({
 
                             data: current.toLocaleDateString('pt-BR'),
-                            day: current.getDay()
+                            dayNumber: numDay,
+                            dayLabel: daysOfWeek[numDay],
+                            temp: {
+                                max: daily[i].temp.max,
+                                min: daily[i].temp.min
+                            },
+                            weather: daily[i].weather[0]
                         })
-                    })
-
-
-                    console.log(arrDays)
+                    }
                 }
 
             }).catch(err => {
 
                 console.log('deu erro...', err)
 
-            }).finally(() => console.log('finish...'))
+            }).finally(() => loading.value = false)
         }
 
+        async function fecthAll(lat, lon) {
+
+            const [weatherResponse, ttResponse] = await Promise.all([
+                fetch(WEATHER_API(lat, lon)),
+                fetch(TT_API(nameCity.value), {
+                    method: 'GET',
+                    mode: 'no-cors',
+                    headers: new Headers({
+
+                        'authorization': `Bearer ${TT_BEARER}`,
+                    })
+                })
+            ])
+
+            const weatherData = await weatherResponse.json()
+            const ttData = await ttResponse.json()
+
+            return [weatherData, ttData]
+        }
 
         return {
 
             nameCity,
+            loading,
+            weekData,
             hasCity
         }
     },
@@ -166,17 +176,28 @@ export default defineComponent({
                         <a-col {...{ sm: 24, md: 24, lg: 24, xl: 16 }} style="padding: 18px">
                             <a-list
                                 class="week-days"
-                                loading={true}
-                                dataSource={days}
+                                loading={this.loading}
+                                dataSource={this.weekData}
                                 grid={{ gutter: 16, column: 4 }}
                                 renderItem={({ item }) => (
 
                                     <a-list-item>
                                         <a-card class="card-day" bordered={false}>
-                                            <h2 class="day-week">{item.dia}</h2>
-                                            <i class="icon sun" />
-                                            <span>{item.grau} º</span>
-                                            <span>{item.label}</span>
+                                            <h2 class="day-week">{item.dayLabel}</h2>
+                                            {/* <i class="icon sun" /> */}
+
+                                            <a-space size="middle" direction="vertical">
+                                                <InlineSvg width="6.5em" height="6.5em" src={pathIcons(item.weather.icon)} />
+                                                <a-row justify="center" style="line-height: 1.5em">
+                                                    <i class="icon min" />
+                                                    <span class="span-temp">{item.temp.min.toFixed()}º</span>
+                                                </a-row>
+                                                <a-row justify="center" style="line-height: 1.5em">
+                                                    <i class="icon max" />
+                                                    <span class="span-temp">{item.temp.max.toFixed()}º</span>
+                                                </a-row>
+                                                <span style="text-transform: capitalize">{item.weather.description}</span>
+                                            </a-space>
                                         </a-card>
                                     </a-list-item>
                                 )}
