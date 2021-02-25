@@ -84,56 +84,42 @@ export default defineComponent({
 
             loading.value = true
 
-            fetch(WEATHER_API(lat, lon)).then(response => response.json()).then(data => {
+            setTimeout(() => {
 
-                if (data) {
+                fetch(WEATHER_API(lat, lon)).then(response => response.json()).then(data => {
 
-                    const { daily } = data
+                    if (data) {
 
-                    for (let i = 1; i < 5; i++) {
+                        const { daily } = data
 
-                        let current = new Date(daily[i].dt * 1000)
-                        let numDay = current.getDay()
+                        for (let i = 1; i < 7; i++) {
 
-                        weekData.push({
+                            let current = new Date(daily[i].dt * 1000)
+                            let numDay = current.getDay()
 
-                            data: current.toLocaleDateString('pt-BR'),
-                            dayNumber: numDay,
-                            dayLabel: daysOfWeek[numDay],
-                            temp: {
-                                max: daily[i].temp.max,
-                                min: daily[i].temp.min
-                            },
-                            weather: daily[i].weather[0]
-                        })
+                            weekData.push({
+
+                                data: current.toLocaleDateString('pt-BR'),
+                                dayNumber: numDay,
+                                dayLabel: daysOfWeek[numDay],
+                                temp: {
+                                    max: daily[i].temp.max,
+                                    min: daily[i].temp.min
+                                },
+                                weather: daily[i].weather[0]
+                            })
+                        }
+                        console.log(weekData)
                     }
-                }
 
-            }).catch(err => {
+                }).catch(err => {
 
-                console.log('deu erro...', err)
+                    console.log('deu erro...', err)
 
-            }).finally(() => loading.value = false)
-        }
+                }).finally(() => loading.value = false)
 
-        async function fecthAll(lat, lon) {
+            }, 5000)
 
-            const [weatherResponse, ttResponse] = await Promise.all([
-                fetch(WEATHER_API(lat, lon)),
-                fetch(TT_API(nameCity.value), {
-                    method: 'GET',
-                    mode: 'no-cors',
-                    headers: new Headers({
-
-                        'authorization': `Bearer ${TT_BEARER}`,
-                    })
-                })
-            ])
-
-            const weatherData = await weatherResponse.json()
-            const ttData = await ttResponse.json()
-
-            return [weatherData, ttData]
         }
 
         return {
@@ -152,7 +138,7 @@ export default defineComponent({
 
                 <Transition name="fade">
                     <a-row v-show={this.hasCity} class="newsletter">
-                        <a-col {...{ sm: 24, md: 24, lg: 24, xl: 8 }} class="tt-feed">
+                        {/* <a-col {...{ sm: 24, md: 24, lg: 24, xl: 8 }} class="tt-feed">
                             <div class="tt-header">
                                 <h2>Twitter Feed</h2>
                                 <span>#{this.nameCity}</span>
@@ -172,13 +158,13 @@ export default defineComponent({
                                     </a-list-item>
                                 )}
                             />
-                        </a-col>
-                        <a-col {...{ sm: 24, md: 24, lg: 24, xl: 16 }} style="padding: 18px">
+                        </a-col> */}
+                        <a-col {...{ sm: 24, md: 24, lg: 24, xl: 24 }} style="padding: 1em">
                             <a-list
                                 class="week-days"
                                 loading={this.loading}
                                 dataSource={this.weekData}
-                                grid={{ gutter: 16, column: 4 }}
+                                grid={{ gutter: 16, column: 6 }}
                                 renderItem={({ item }) => (
 
                                     <a-list-item>
