@@ -16,32 +16,14 @@ Spin.setDefaultIndicator({
     indicator: () => <div class="indicator-loading"><InlineSvg src={loadingSVG} width="3em" height="3em" /></div>
 })
 
-const tweets = [
-    {
-        id: 1,
-        username: 'user256',
-        tweet: 'Lorem ipsun lorem ipsun lorem ipsun lorem ipsun lorem..'
-    },
-    {
-        id: 2,
-        username: 'Iasd5',
-        tweet: 'Lorem ipsun lorem ipsun lorem ipsun'
-    },
-    {
-        id: 3,
-        username: 'fr0st_88',
-        tweet: 'Lorem ipsun lorem ipsun lorem ipsun'
-    },
-]
-
 const daysOfWeek = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB']
 
 const WelcomeBlock = () => (
     <a-row class="block-init">
         <a-col {...{ sm: 24, md: 24, lg: 24, xl: 24 }}>
-            <h1>Welcome!</h1>
-            <p>xWeather is a simple application of weather with base your location and some tweets about your place.</p>
-            <p>This app is development, for more information check the repository in <a href="#" target="_blank">Github</a>.</p>
+            <h1>Bem vindo!</h1>
+            <p>xWeather é um simples aplicativo de clima com base na sua localização(latitude, longitude).</p>
+            <p>Esse app é apenas experimental, para mais informações visite o repositório no <a href="#" target="_blank">Github</a>.</p>
         </a-col>
     </a-row>
 )
@@ -84,41 +66,41 @@ export default defineComponent({
 
             loading.value = true
 
-            setTimeout(() => {
+            //setTimeout(() => {
 
-                fetch(WEATHER_API(lat, lon)).then(response => response.json()).then(data => {
+            fetch(WEATHER_API(lat, lon)).then(response => response.json()).then(data => {
 
-                    if (data) {
+                if (data) {
 
-                        const { daily } = data
+                    const { daily } = data
 
-                        for (let i = 1; i < 7; i++) {
+                    for (let i = 1; i < 7; i++) {
 
-                            let current = new Date(daily[i].dt * 1000)
-                            let numDay = current.getDay()
+                        let current = new Date(daily[i].dt * 1000)
+                        let numDay = current.getDay()
 
-                            weekData.push({
+                        weekData.push({
 
-                                data: current.toLocaleDateString('pt-BR'),
-                                dayNumber: numDay,
-                                dayLabel: daysOfWeek[numDay],
-                                temp: {
-                                    max: daily[i].temp.max,
-                                    min: daily[i].temp.min
-                                },
-                                weather: daily[i].weather[0]
-                            })
-                        }
-                        console.log(weekData)
+                            data: current.toLocaleDateString('pt-BR'),
+                            dayNumber: numDay,
+                            dayLabel: daysOfWeek[numDay],
+                            temp: {
+                                max: daily[i].temp.max,
+                                min: daily[i].temp.min
+                            },
+                            weather: daily[i].weather[0]
+                        })
                     }
+                    console.log(weekData)
+                }
 
-                }).catch(err => {
+            }).catch(err => {
 
-                    console.log('deu erro...', err)
+                console.log('deu erro...', err)
 
-                }).finally(() => loading.value = false)
+            }).finally(() => loading.value = false)
 
-            }, 5000)
+            //}, 2000)
 
         }
 

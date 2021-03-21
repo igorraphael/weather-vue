@@ -70,8 +70,7 @@ export default defineComponent({
     render() {
 
         return (
-            // <a-config-provider locale={pt_BR}>
-            <div id="main">
+            <main id="main">
                 <Header />
 
                 <div id="container">
@@ -87,8 +86,7 @@ export default defineComponent({
                     </a-row>
                     <Newsletters city={this.currentCity} />
                 </div>
-            </div>
-            // </a-config-provider>
+            </main>
         )
     }
 })
