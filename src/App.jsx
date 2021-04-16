@@ -3,6 +3,10 @@ import './index.css'
 
 export default {
 
+    setup() {
+
+        console.log(import.meta.env);
+    },
     render() {
 
         return (
