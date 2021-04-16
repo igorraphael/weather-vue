@@ -5,7 +5,10 @@ export default {
 
     setup() {
 
-        console.log(import.meta.env);
+
+        console.log('API_KEY ', process.env.API_KEY);
+        console.log(process.env);
+        console.log('meta-> ', import.meta.env);
     },
     render() {
 
